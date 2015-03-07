@@ -1,0 +1,8 @@
+*.egg-info/
+*.pyc
+.checkpoint/
+build/
+dist/
+github.mk
+python.mk
+venv/
