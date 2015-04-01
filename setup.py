@@ -2,8 +2,13 @@ import os
 
 from setuptools import setup, find_packages
 
+here = os.path.abspath(os.path.dirname(__file__))
+
+with open(os.path.join(here, 'VERSION.txt')) as f:
+    VERSION = f.read().strip()
+
 setup(name='lexical',
-      version='0.0.1',
+      version=VERSION,
       description='Simple Lexical Analyser',
       classifiers=[
         "Programming Language :: Python",
