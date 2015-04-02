@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
 from re import match
 import re
 from io import StringIO, BytesIO
+import sys
 
 class UnknownToken(Exception):
     ''' Unknown token error when trying to tokenize a single line '''
@@ -17,12 +19,24 @@ class UnknownToken(Exception):
         msg = 'Unknown token @({line},{column}): {0}'
         return msg.format(self.line_code.rstrip(), **vars(self))
 
+def is_string(code):
+    return (
+            (sys.version_info >= (3,0) and type(code).__name__ == 'str') or
+            type(code).__name__ == 'unicode'
+        )
+
+def is_bytes(code):
+    return (
+            (sys.version_info >= (3,0) and type(code).__name__ == 'bytes') or
+            type(code).__name__ == 'str'
+        )
+
 
 def code_line_generator(code):
     ''' A generator for lines from a file/string, keeping the \n at end '''
-    if isinstance(code, unicode):
+    if is_string(code):
         stream = StringIO(code)
-    elif isinstance(code, str):
+    elif is_bytes(code):
         stream = BytesIO(code)
     else:
         stream = code # Should be a file input stream, already
