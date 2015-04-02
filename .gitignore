@@ -1,6 +1,7 @@
 *.egg-info/
 *.pyc
 .checkpoint/
+.tox/
 build/
 dist/
 github.mk

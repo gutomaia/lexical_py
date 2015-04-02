@@ -35,11 +35,15 @@ tdd: ${REQUIREMENTS_TEST}
 	@${eval export IGNORE=${shell ls -d */ | grep -v --regex "^${PYTHON_MODULES}/$$" | xargs echo | sed 's/\///g' | sed 's/ /,/g'}}
 	${VIRTUALENV} tdaemon --ignore-dirs="${IGNORE}" --custom-args="--with-notifyplugin --no-start-message --processes=4"
 
+tox: ${REQUIREMENTS_TEST}
+	${VIRTUALENV} tox
+
 dist: python_egg python_wheel
 
 clean: python_clean
 	@rm -rf build dist
 	@rm -rf plugins
+	@rm -rf .tox
 
 register:
 	${VIRTUALENV} python setup.py register -r pypi
