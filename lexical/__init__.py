@@ -55,7 +55,8 @@ def analyse(code, token_types):
         while column <= len(line_code):
             remaining_line_code = line_code[column - 1:]
             for ttype in token_types:
-                m = match(ttype['regex'], remaining_line_code, re.S)
+                flags = ttype.get('flags', 0)
+                m = match(ttype['regex'], remaining_line_code, re.S | flags)
                 if m:
                     value = m.group(0)
                     if ttype['store']:
