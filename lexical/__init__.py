@@ -44,7 +44,7 @@ def code_line_generator(code):
     while True:
         line = stream.readline()
         if line:
-            yield line
+            yield line + ' '
         else: # Line is empty (without \n) at EOF
             break
 
@@ -58,7 +58,7 @@ def analyse(code, token_types):
                 flags = ttype.get('flags', 0)
                 m = match(ttype['regex'], remaining_line_code, re.S | flags)
                 if m:
-                    value = m.group(0)
+                    value = m.group(1)
                     if ttype['store']:
                         yield dict(
                             type=ttype['type'],
